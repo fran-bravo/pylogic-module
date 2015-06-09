@@ -43,6 +43,9 @@ class Predicate():
     def add_rule(self, rule):
         self.rules.append(format_rule(rule))
 
+    def main_rule(self):
+        self.base_rule = lambda pred, tup: flat([base.tally(tup) for base in pred.bases])
+
     def tally_main(self, params):
         self.results = self.base_rule(self, params)
 
@@ -55,9 +58,6 @@ class Predicate():
             else:
                 aux = self.results
         self.results = aux
-
-    def main_rule(self):
-        self.base_rule = lambda pred, tup: flat([base.tally(tup) for base in pred.bases])
 
     def tally(self, params):
         self.tally_main(params)

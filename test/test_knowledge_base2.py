@@ -12,10 +12,12 @@ class TestKnowledgeBase2(TestCase):
     case5 = Case(("Nombre", 4, True))
     case6 = Case(("Apellido", 4, False))
     case7 = Case(("Apellido", 5, True))
+    case8 = Case((object, list, 4))
 
     base2.add_case(case5)
     base2.add_case(case6)
     base2.add_case(case7)
+    base2.add_case(case8)
 
     def test_tally4(self):
         assert self.base2.tally(("Apellido", _, False)) == [("Apellido", 4, False)]
@@ -28,6 +30,9 @@ class TestKnowledgeBase2(TestCase):
 
     def test_tally7(self):
         assert self.base2.tally((_, 4, _)) == [("Nombre", 4, True), ("Apellido", 4, False)]
+
+    def test_tally_all(self):
+        assert self.base2.tally((_, _, _)) == [("Nombre", 4, True), ("Apellido", 4, False), ("Apellido", 5, True), (object, list, 4)]
 
     def test_amount_of_answers_empty(self):
         assert self.base2.amount_of_answers((_, _, _)) == 3

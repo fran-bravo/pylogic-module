@@ -15,11 +15,13 @@ class TestKnowledgeBase(TestCase):
     case2 = Case(("X", False))
     case3 = Case(("Y", False))
     case4 = Case(("Z", True))
+    case5 = Case((True, "Z"))
 
     base.add_case(case1)
     base.add_case(case2)
     base.add_case(case3)
     base.add_case(case4)
+    base.add_case(case5)
 
     def test_add_case(self):
         base = KnowledgeBase(2)

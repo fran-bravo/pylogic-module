@@ -1,8 +1,7 @@
 def reduce_lvl(lista):
-    new_list = []
     for l in lista:
-        new_list = l
-    return new_list
+        return l
+
 
 def flat(lista):
     new_list = []
@@ -24,8 +23,7 @@ def eval_elems(lista):
     return new_list
 
 def format_rule(rule):
-    new_rule = lambda pred, tup: rule(tup)
-    return new_rule
+    return lambda pred, tup: rule(tup)
 
 
 class Predicate():

@@ -1,7 +1,7 @@
 from unittest import TestCase
 from src.case import Case
 from src.knowledge_base import KnowledgeBase
-from src.predicate import Predicate
+from src.predicate import *
 
 __author__ = 'francisco'
 
@@ -34,7 +34,7 @@ class TestPredicate(TestCase):
 
         assert predicate.tally((_, 4, _)) == [("Pablo", 4, True), ("Nombre", 4, True), ("Apellido", 4, False)]
 
-    def test_two_rule_predicate(self):
+    def test_two_bases_predicate(self):
         predicate = Predicate()
         predicate.add_base(self.base)
         predicate.add_base(self.base2)
@@ -60,4 +60,19 @@ class TestPredicate(TestCase):
         predicate.add_rule(lambda tup: tup[0].startswith("A"))
 
         assert predicate.tally((_, _, True)) == [("Apellido", 5, True)]
+
+    def test_def_predicate(self):
+        predicate = Predicate()
+        predicate.add_base(self.base)
+        predicate.add_base(self.base2)
+
+        def filtro(tupla):
+            if tupla[1] == 4 and (tupla[0] == "Nombre" or tupla[0] == "Pablo"):
+                return True
+            else:
+                return False
+
+        predicate.add_rule(filtro)
+
+        assert predicate.tally((_, _, True)) == [("Pablo", 4, True), ("Nombre", 4, True)]
 

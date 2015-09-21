@@ -1,9 +1,7 @@
 from unittest import TestCase
 from src.case import Case
 from src.knowledge_base import KnowledgeBase
-
-global _
-_ = None
+from src.functions import _
 
 class TestKnowledgeBase2(TestCase):
 

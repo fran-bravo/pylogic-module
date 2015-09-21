@@ -1,28 +1,4 @@
-global _
-_ = None
-
-# Funciones Independientes #
-
-def equal_or_empty(val1, val2):
-    if val1 == val2:
-        return True
-    elif val1 == _:
-        return True
-    elif val2 == _:
-        return True
-    else:
-        return False
-
-def compare_cases(case1, case2):
-    lista_bools = [(equal_or_empty(case1, case2)) for case1, case2 in zip(case1, case2)]
-    return all(lista_bools)
-
-def count_answers(tupla):
-    lista, count = list(tupla), 0
-    for l in lista:
-            if l == _:
-                count += 1
-    return count
+from src.functions import compare_cases, count_answers, _
 
 # Clase Base de Conocimiento #
 

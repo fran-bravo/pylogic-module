@@ -1,12 +1,8 @@
 from unittest import TestCase
 from src.case import Case
 from src.knowledge_base import KnowledgeBase
-from src.predicate import *
-
-__author__ = 'francisco'
-
-global _
-_ = None
+from src.predicate import Predicate
+from src.functions import _
 
 
 class TestPredicate(TestCase):

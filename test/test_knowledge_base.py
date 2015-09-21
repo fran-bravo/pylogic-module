@@ -2,10 +2,8 @@ from unittest import TestCase
 from src.case import Case
 from src.knowledge_base import KnowledgeBase
 from src.knowledge_base import ArityError
+from src.functions import _
 import pytest
-
-global _
-_ = None
 
 class TestKnowledgeBase(TestCase):
 

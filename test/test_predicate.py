@@ -8,6 +8,7 @@ __author__ = 'francisco'
 global _
 _ = None
 
+
 class TestPredicate(TestCase):
     base = KnowledgeBase(3)
 
@@ -24,7 +25,7 @@ class TestPredicate(TestCase):
 
     base2 = KnowledgeBase(3)
 
-    case8 = Case((str(),4,object))
+    case8 = Case((str(), 4, object))
 
     base2.add_case(case8)
 
@@ -39,7 +40,7 @@ class TestPredicate(TestCase):
         predicate.add_base(self.base)
         predicate.add_base(self.base2)
 
-        predicate.add_rule(lambda tup: tup[1]>3)
+        predicate.add_rule(lambda tup: tup[1] > 3)
 
         assert predicate.tally((_, 4, _)) == [("Pablo", 4, True), ("Nombre", 4, True), ("Apellido", 4, False), (str(), 4, object)]
 
@@ -48,7 +49,7 @@ class TestPredicate(TestCase):
         predicate.add_base(self.base)
         predicate.add_base(self.base2)
 
-        predicate.add_rule(lambda tup: tup[1]>4)
+        predicate.add_rule(lambda tup: tup[1] > 4)
 
         assert predicate.tally((_, _, True)) == [("Apellido", 5, True)]
 
@@ -73,6 +74,6 @@ class TestPredicate(TestCase):
                 return False
 
         predicate.add_rule(filtro)
-
+        print("Tally", predicate.tally((_, _, True)))
         assert predicate.tally((_, _, True)) == [("Pablo", 4, True), ("Nombre", 4, True)]
 

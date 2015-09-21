@@ -25,8 +25,31 @@ def eval_elems(lista):
 def format_rule(rule):
     return lambda pred, tup: rule(tup)
 
+def compare_tuple(tup1, tup2):
+    if len(tup1) != len(tup2):
+        return False
+    else:
+        for i in range(len(tup1)):
+            if tup1[i] != tup2[i]:
+                return False
 
-class Predicate():
+    return True
+
+def check_tuple_elem(tup, lista):
+    value = False
+    for l in lista:
+        value = compare_tuple(tup, l)
+    return value
+
+def filter_tuple_repeats(lista):
+    new_list = []
+    for l in lista:
+        if not check_tuple_elem(l, new_list):
+            new_list.append(l)
+    return new_list
+
+
+class Predicate:
 
     def __init__(self):
         self.rules = []

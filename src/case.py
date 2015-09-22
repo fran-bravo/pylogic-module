@@ -4,9 +4,9 @@ from src.functions import compare_cases, _
 
 class Case:
 
-    def __init__(self, tupla):
+    def __init__(self, tupla, selector="default"):
+        self.selector = str(selector)
         self.tupla = tupla
-        self.resultados = []
 
     def tally_single_value(self, value):
         if value in self.tupla:

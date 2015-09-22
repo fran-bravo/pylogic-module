@@ -1,4 +1,4 @@
-from src.functions import compare_cases, count_answers, _
+from src.functions import compare_cases, count_answers, flat, _
 
 # Clase Base de Conocimiento #
 
@@ -35,23 +35,38 @@ class KnowledgeBase:
         if len(variables) != self.arity:
             raise ArityError
 
+    def validate_selector(self, selector):
+        if not self.exists(selector):
+            raise SelectorError
+
+    def search_values(self, tupla):
+        for l in self.cases.values():
+            if tupla in l:
+                return True
+        return False
+
+    def flat_values(self):
+        print(flat(self.cases.values()))
+        return flat(self.cases.values())
+
     def amount_of_answers(self, tupla):
-        if tupla in self.cases:
+        if self.search_values(tupla):
             return 0
         else:
             return count_answers(tupla)
 
     def tally_no_var(self, variables):
-        for case in self.cases:
-            if case.tupla == variables:
+        for case in self.flat_values():
+            if case == variables:
                 return True
         return False
 
     def tally_multiple_vars(self, variables):
         results = []
-        for case in self.cases:
-            if compare_cases(case.tupla, variables):
-                results.append(case.tupla)
+        for tupla in self.flat_values():
+            print(tupla)
+            if compare_cases(tupla, variables):
+                results.append(tupla)
         #print("resultados:", results)
         return results
 
@@ -68,6 +83,9 @@ class KnowledgeBase:
 # Clase Error de Aridad #
 
 class ArityError(Exception):
+    pass
+
+class SelectorError(Exception):
     pass
 
 class TallyError(Exception):

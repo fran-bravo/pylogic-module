@@ -13,7 +13,7 @@ class TestKnowledgeBase(TestCase):
     case2 = Case(("X", False))
     case3 = Case(("Y", False))
     case4 = Case(("Z", True))
-    case5 = Case((True, "Z"))
+    case5 = Case(selector="otros", tupla=(True, "Z"))
 
     base.add_case(case1)
     base.add_case(case2)
@@ -24,7 +24,10 @@ class TestKnowledgeBase(TestCase):
     def test_add_case(self):
         base = KnowledgeBase(2)
         case = Case(("X", True))
+        case2 = Case(("Y", True))
         base.add_case(case)
+        base.add_case(case2)
+        assert len(base.cases["default"]) == 2
 
     def test_fail_add_case(self):
         base = KnowledgeBase(3)

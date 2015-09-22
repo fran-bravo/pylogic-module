@@ -6,14 +6,28 @@ class KnowledgeBase:
 
     def __init__(self, arity):
         self.arity = arity
-        self.cases = []
+        self.cases = {}
 
     def add_case(self, case):
-        if len(case.tupla) == self.arity:
-            self.cases.append(case)
+        self.validate_arity(case.tupla)
+        if self.exists(case.selector):
+            self.add_to_list(case)
         else:
-            raise ArityError
+            self.add_new_to_list(case)
 
+
+# Auxiliar Methods for Add #
+
+    def exists(self, selector):
+        return selector in self.cases.keys()
+
+    def add_to_list(self, case):
+        lista = self.cases[case.selector]
+        lista.append(case.tupla)
+        self.cases.update({case.selector: lista})
+
+    def add_new_to_list(self, case):
+        self.cases.update({case.selector: [case.tupla]})
 
 # Auxiliar Methods for Tally #
 

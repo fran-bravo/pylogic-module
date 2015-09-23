@@ -1,6 +1,6 @@
-from src.case import *
-from src.knowledge_base import *
-from src.predicate import *
+from src.case import Case
+from src.knowledge_base import KnowledgeBase
+from src.predicate import Predicate
 
 class CaseBuilder:
 
@@ -20,3 +20,25 @@ class CaseBuilder:
 
     def build(self):
         return Case(self.tupla, self.selector)
+
+    def build_from(self, tupla, selector="default"):
+        return Case(selector, tupla)
+
+class BaseBuilder:
+
+    def __init__(self, aridad=0, cases={}):
+        self.aridad = aridad
+        self.cases = cases
+
+    def set_aridad(self, aridad):
+        self.aridad = aridad
+
+    def set_cases(self, cases):
+        self.cases = cases
+
+    def set_config(self, aridad, cases):
+        self.set_aridad(aridad)
+        self.set_cases(cases)
+
+    def build(self):
+        return KnowledgeBase(self.aridad, self.cases)

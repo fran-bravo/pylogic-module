@@ -46,7 +46,6 @@ class KnowledgeBase:
         return False
 
     def flat_values(self):
-        print(flat(self.cases.values()))
         return flat(self.cases.values())
 
     def amount_of_answers(self, tupla):
@@ -64,10 +63,8 @@ class KnowledgeBase:
     def tally_multiple_vars(self, variables):
         results = []
         for tupla in self.flat_values():
-            print(tupla)
             if compare_cases(tupla, variables):
                 results.append(tupla)
-        #print("resultados:", results)
         return results
 
     def tally(self, variables):

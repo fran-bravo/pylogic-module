@@ -70,6 +70,5 @@ class TestPredicate(TestCase):
                 return False
 
         predicate.add_rule(filtro)
-        print("Tally", predicate.tally((_, _, True)))
         assert predicate.tally((_, _, True)) == [("Pablo", 4, True), ("Nombre", 4, True)]
 

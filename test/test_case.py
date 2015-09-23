@@ -3,7 +3,7 @@ from src.knowledge_base import KnowledgeBase
 from src.functions import _
 from src.creationals import CaseBuilder
 
-builder = CaseBuilder("default", (True, "Hola"))
+builder = CaseBuilder()
 x = 1
 base = KnowledgeBase(3)
 
@@ -14,6 +14,7 @@ def assert_case_test(value, selector, tupla):
 
 class TestCase(TestCase):
     def test_case_tally(self):
+        builder.set_config("default", (True, "Hola"))
         assert_case_test(True, "default", (True, "Hola"))
 
     def test_case_tally_2(self):
@@ -27,3 +28,7 @@ class TestCase(TestCase):
     def test_case_tally_4(self):
         builder.set_config("legajo", ("Homero", 123456))
         assert_case_test(("Homero", _), "legajo", ("Homero", 123456))
+
+    def test_case_failed_tally(self):
+        builder.set_config("identidad", ("Homero", "Gomez"))
+        assert_case_test(("Bart", _), "identidad", False)

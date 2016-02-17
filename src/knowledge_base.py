@@ -1,5 +1,5 @@
 from src.functions import compare_cases, count_answers, flat, _
-
+from src.exceptions import ArityError, TallyError, SelectorError
 # Clase Base de Conocimiento #
 
 class KnowledgeBase:
@@ -95,14 +95,4 @@ class KnowledgeBase:
         return len(self.strains())
 
 
-# Clase Error de Aridad #
-
-class ArityError(Exception):
-    pass
-
-class SelectorError(Exception):
-    pass
-
-class TallyError(Exception):
-    pass
 

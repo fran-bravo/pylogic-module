@@ -12,6 +12,5 @@ class TestCase(TestCase):
             print(father + " has a son named " + son)
             return
         parent("bob", "tim")
-        print(base.cases)
 
         assert base.tally("parent","bob","tim") == True

@@ -9,7 +9,6 @@ class KnowledgeBase:
         self.cases = {}
 
     def add_case(self, case):
-        print("caso", case.tupla)
         self._validate_arity(case.tupla)
         if self._exists(case.selector):
             self._add_to_list(case)

@@ -27,7 +27,6 @@ class TestKnowledgeBase(TestCase):
         case2 = Case("default", "Y", True)
         base.add_case(case)
         base.add_case(case2)
-        print("Casos de la base", base.cases["default"])
         assert len(base.cases["default"]) == 2
 
     def test_fail_add_case(self):

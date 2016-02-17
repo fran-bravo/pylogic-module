@@ -4,22 +4,22 @@ from src.predicate import Predicate
 
 class CaseBuilder:
 
-    def __init__(self, selector="default", tupla=()):
+    def __init__(self, selector="default"):
         self.selector = selector
-        self.tupla = tupla
+        self.tupla = []
 
     def set_selector(self, selector):
         self.selector = selector
 
-    def set_tupla(self, tupla):
+    def set_tupla(self, *tupla):
         self.tupla = tupla
 
-    def set_config(self, selector, tupla):
+    def set_config(self, selector, *tupla):
         self.set_selector(selector)
-        self.set_tupla(tupla)
+        self.set_tupla(*tupla)
 
     def build(self):
-        return Case(self.tupla, self.selector)
+        return Case(self.selector, *self.tupla)
 
     def build_from(self, tupla, selector="default"):
         return Case(selector, tupla)

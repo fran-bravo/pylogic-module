@@ -2,11 +2,11 @@ from src.functions import format_rule, flat, eval_elems, _
 
 class Predicate:
 
-    def __init__(self):
+    def __init__(self, selector="default"):
         self.rules = []
         self.base_rule = None
         self.bases = []
-        self.main_rule()
+        self.main_rule(selector)
         self.results = []
 
     def add_base(self, base):
@@ -15,8 +15,8 @@ class Predicate:
     def add_rule(self, rule):
         self.rules.append(format_rule(rule))
 
-    def main_rule(self):
-        self.base_rule = lambda pred, tup: flat([base.tally(tup) for base in pred.bases])
+    def main_rule(self, selector):
+        self.base_rule = lambda pred, tup: flat([base.tally(selector, *tup) for base in pred.bases])
 
     def tally_main(self, params):
         self.results = self.base_rule(self, params)
@@ -31,8 +31,9 @@ class Predicate:
                 aux = self.results
         self.results = aux
 
-    def tally(self, params):
-        self.tally_main(params)
-        self.tally_rules(params)
+    def tally(self, *params):
+        pars = tuple(params)
+        self.tally_main(pars)
+        self.tally_rules(pars)
 
         return eval_elems(self.results)

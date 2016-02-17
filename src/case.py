@@ -1,12 +1,12 @@
-from src.functions import compare_cases, _
+from src.functions import compare_cases
 
 # Clase Hecho/Caso #
 
 class Case:
 
-    def __init__(self, tupla, selector="default"):
+    def __init__(self, selector, *args):
         self.selector = str(selector)
-        self.tupla = tupla
+        self.tupla = tuple(args)
 
     def tally_single_value(self, value):
         if value in self.tupla:

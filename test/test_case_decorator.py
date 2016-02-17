@@ -14,3 +14,4 @@ class TestCase(TestCase):
         parent("bob", "tim")
 
         assert base.tally("parent","bob","tim") == True
+

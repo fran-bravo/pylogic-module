@@ -15,6 +15,8 @@ class KnowledgeBase:
         else:
             self._add_new_to_list(case)
 
+    def delete_strain(self, selector):
+        self.cases.pop(selector)
 
 # Auxiliar Methods for Add #
 
@@ -86,8 +88,11 @@ class KnowledgeBase:
         else:
             return count_answers(tupla)
 
-    def selectors(self):
-        return self.cases.keys()
+    def strains(self):
+        return list(self.cases.keys())
+
+    def amount_of_strains(self):
+        return len(self.strains())
 
 
 # Clase Error de Aridad #

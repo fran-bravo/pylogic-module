@@ -35,8 +35,19 @@ class TestKnowledgeBase(TestCase):
         with pytest.raises(ArityError):
             base.add_case(case)
 
+    def test_delete_strain(self):
+        base = KnowledgeBase(2)
+        case = Case("default", "X", True)
+        case2 = Case("unknown", "Y", True)
+        base.add_case(case)
+        base.add_case(case2)
+        assert base.amount_of_strains() == 2
+        base.delete_strain("default")
+        assert "default" not in base.strains()
+        assert base.strains() == ['unknown']
+
     def test_multiple_selectors(self):
-        assert len(self.base.selectors()) == 2
+        assert len(self.base.strains()) == 2
 
     def test_tally(self):
         assert self.base.tally("default", "Z", _) == [("Z", True)]

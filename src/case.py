@@ -3,6 +3,11 @@ from src.functions import compare_cases
 # Clase Hecho/Caso #
 
 class Case:
+    """Basic type of object for the logical programming, consists of:
+    - A selector, used to identify the family of cases
+    - A tuple, containing the values associated to the case
+    """
+
 
     def __init__(self, selector, *args):
         self.selector = str(selector)

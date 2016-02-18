@@ -9,7 +9,7 @@ import pytest
 def add_parent_strain(base):
     @case(base)
     def parent(father, son):
-        print(father + " has a son named " + son)
+        #print(father + " has a son named " + son)
         return
     return parent
 
@@ -19,6 +19,35 @@ def add_brother_strain(base):
     def brothers(firstBorn, secondBorn):
         pass
     return brothers
+
+
+def set_up_parents(base):
+    parent = add_parent_strain(base)
+
+    parent("Bob", "Caleb")
+    parent("Bob", "George")
+    parent("Bob", "Tim")
+
+    return parent
+
+
+def set_up_brothers(base):
+    brothers = add_brother_strain(base)
+
+    brothers("Caleb", "George")
+    brothers("Caleb", "Tim")
+    brothers("George", "Tim")
+    brothers("George", "Caleb")
+    brothers("Tim", "Caleb")
+    brothers("Tim", "George")
+
+    return brothers
+
+
+def set_up_strain(base):
+    set_up_brothers(base)
+    set_up_parents(base)
+
 
 
 class TestCase(TestCase):
@@ -44,18 +73,27 @@ class TestCase(TestCase):
 
         assert base.tally("brothers", "Caleb", "George") == True
 
-    def test_base_strains(self):
+    def test_base_strains_corrects(self):
         base = KnowledgeBase(2)
-        brothers = add_brother_strain(base)
-        parent = add_parent_strain(base)
-
-        brothers("Caleb", "George")
-        brothers("Caleb", "Tim")
-        brothers("George", "Tim")
-        parent("Bob", "Caleb")
-        parent("Bob", "George")
-        parent("Bob", "Tim")
+        set_up_strain(base)
 
         assert base.amount_of_strains() == 2
-        assert base.tally("brothers", "Caleb", _) == [("Caleb","George"), ("Caleb", "Tim")]
+        assert base.tally("parent", "Bob", "Caleb") == True
+        assert base.tally("brothers", "Caleb", "Tim") == True
+        assert base.tally("brothers", "Tim", "Caleb") == True
+
+    def test_base_strains_fails(self):
+        base = KnowledgeBase(2)
+        set_up_strain(base)
+
+        assert base.tally("parent", "Tim", _) == []
+        assert base.tally("parent", "George", "Tim") == False
+        assert base.tally("brothers", "Gina", _) == []
+
+    def test_base_strains_list_results(self):
+        base = KnowledgeBase(2)
+        set_up_strain(base)
+
         assert base.tally("parent", "Bob", _) == [("Bob","Caleb"), ("Bob","George"), ("Bob", "Tim")]
+        assert base.tally("brothers", "Caleb", _) == [("Caleb","George"), ("Caleb", "Tim")]
+        assert base.tally("brothers", "Tim", _) == [("Tim", "Caleb"), ("Tim", "George")]

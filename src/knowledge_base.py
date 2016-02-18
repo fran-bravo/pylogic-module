@@ -3,6 +3,10 @@ from src.exceptions import ArityError, TallyError, SelectorError
 # Clase Base de Conocimiento #
 
 class KnowledgeBase:
+    """Main object for logical queries in the logical environment, consists of:
+    - An arity, that is used to specify the length of the cases which it supports
+    - A list of cases, that represent the values stored
+    """
 
     def __init__(self, arity):
         self.arity = arity

@@ -14,6 +14,12 @@ class Predicate:
         self.main_rule(selector)
         self._results = []
 
+    def __str__(self):
+        bases = []
+        for b in self.bases:
+            bases.append(str(b))
+        return "Rules: " + str(self.rules) + " Bases: " + str(bases) + " Results: " + str(self._results)
+
     def add_base(self, base):
         self.bases.append(base)
 

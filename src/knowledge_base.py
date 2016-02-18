@@ -12,6 +12,9 @@ class KnowledgeBase:
         self.arity = arity
         self.cases = {}
 
+    def __str__(self):
+        return "Arity: " + str(self.arity) + " Cases: " + str(self.cases)
+
     def add_case(self, case):
         self._validate_arity(case.tupla)
         if self._exists(case.selector):

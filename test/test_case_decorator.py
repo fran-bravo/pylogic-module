@@ -45,8 +45,8 @@ def set_up_brothers(base):
 
 
 def set_up_strain(base):
-    set_up_brothers(base)
-    set_up_parents(base)
+    return set_up_brothers(base), set_up_parents(base)
+
 
 
 
@@ -59,8 +59,8 @@ class TestCase(TestCase):
         assert base.tally("parent","bob","tim") == True
 
     def test_arity_error(self):
-        base = KnowledgeBase(2)
         with pytest.raises(ArityError):
+            base = KnowledgeBase(2)
             @case(base)
             def brothers(firstBorn, secondBorn, thirdBorn):
                 pass
@@ -92,7 +92,7 @@ class TestCase(TestCase):
 
     def test_base_strains_list_results(self):
         base = KnowledgeBase(2)
-        set_up_strain(base)
+        brothers, parent = set_up_strain(base)
 
         assert base.tally("parent", "Bob", _) == [("Bob","Caleb"), ("Bob","George"), ("Bob", "Tim")]
         assert base.tally("brothers", "Caleb", _) == [("Caleb","George"), ("Caleb", "Tim")]

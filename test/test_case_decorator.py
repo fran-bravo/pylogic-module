@@ -9,8 +9,7 @@ import pytest
 def add_parent_strain(base):
     @case(base)
     def parent(father, son):
-        #print(father + " has a son named " + son)
-        return
+        pass
     return parent
 
 

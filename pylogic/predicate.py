@@ -1,4 +1,4 @@
-from src.functions import format_rule, flat, eval_elems, _
+from pylogic.functions import format_rule, flat, eval_elems, _
 
 class Predicate:
     """Advanced logical object that establishes rules associated to cases and other kind of rules, contains:

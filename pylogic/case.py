@@ -1,4 +1,4 @@
-from src.functions import compare_cases
+from pylogic.functions import compare_cases
 
 
 # Clase Hecho/Caso #

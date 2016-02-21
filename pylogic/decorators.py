@@ -1,5 +1,5 @@
-from src.case import Case
-from src.exceptions import ArityError
+from pylogic.case import Case
+from pylogic.exceptions import ArityError
 
 def case(knowledge_base):
     def wrap(func):

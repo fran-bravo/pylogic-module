@@ -1,6 +1,6 @@
-from src.case import Case
-from src.knowledge_base import KnowledgeBase
-from src.predicate import Predicate
+from pylogic.case import Case
+from pylogic.knowledge_base import KnowledgeBase
+from pylogic.predicate import Predicate
 
 class CaseBuilder:
 

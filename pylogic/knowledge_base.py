@@ -1,5 +1,5 @@
-from src.functions import compare_cases, count_answers, flat, _
-from src.exceptions import ArityError, TallyError, SelectorError
+from pylogic.functions import compare_cases, count_answers, flat, _
+from pylogic.exceptions import ArityError, TallyError, SelectorError
 # Clase Base de Conocimiento #
 
 class KnowledgeBase:

@@ -1,7 +1,8 @@
 from unittest import TestCase
-from src.case import Case
-from src.knowledge_base import KnowledgeBase
-from src.functions import _
+from pylogic.case import Case
+from pylogic.knowledge_base import KnowledgeBase
+from pylogic.functions import _, count_answers
+
 
 class TestKnowledgeBase2(TestCase):
 
@@ -32,11 +33,15 @@ class TestKnowledgeBase2(TestCase):
     def test_tally_all(self):
         assert self.base2.tally("default", _, _, _) == [("Nombre", 4, True), ("Apellido", 4, False), ("Apellido", 5, True), (object, list, 4)]
 
+    def test_tally_no_selector(self):
+        self.base2.add_case(Case("otros", True, "premio", 3))
+        assert self.base2.tally(_,  _, _, _) == [("Nombre", 4, True), ("Apellido", 4, False), ("Apellido", 5, True), (object, list, 4), (True, "premio", 3)]
+
     def test_amount_of_answers_empty(self):
-        assert self.base2.amount_of_answers(_, _, _) == 3
+        assert count_answers(_, _, _) == 3
 
     def test_amount_of_answers_full(self):
-        assert self.base2.amount_of_answers("Nombre", 4, True) == 0
+        assert count_answers("Nombre", 4, True) == 0
 
     def test_amount_of_answers_wrong(self):
-        assert self.base2.amount_of_answers("ASDSA", 2, str()) == 0
+        assert count_answers("ASDSA", 2, str()) == 0

@@ -1,8 +1,8 @@
 from unittest import TestCase
-from src.case import Case
-from src.knowledge_base import KnowledgeBase
-from src.predicate import Predicate
-from src.functions import _
+from pylogic.case import Case
+from pylogic.knowledge_base import KnowledgeBase
+from pylogic.predicate import Predicate
+from pylogic.functions import _
 
 
 class TestPredicate(TestCase):

@@ -1,5 +1,6 @@
 from pylogic.functions import format_rule, flat, eval_elems, _
 
+
 class Predicate:
     """Advanced logical object that establishes rules associated to cases and other kind of rules, contains:
     - A list of rules that are applied to the queries associated to it. One of them is a KnowledgeBase query

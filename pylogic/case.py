@@ -5,7 +5,8 @@ from pylogic.functions import compare_cases
 
 
 class Case:
-    """Basic type of object for the logical programming, consists of:
+    """
+    Basic type of object for the logical programming, consists of:
     - A selector, used to identify the family of cases
     - A tuple, containing the values associated to the case
     """
@@ -17,21 +18,15 @@ class Case:
     def __str__(self):
         return self.selector + str(self.tupla)
 
-    def tally_single_value(self, value):
-        if value in self.tupla:
-            return self.tupla
-        else:
-            return False
-
-    def tally_tuple(self,tupla):
-        if compare_cases(tupla, self.tupla):
-            return self.tupla
-        else:
-            return False
-
     def tally(self, value):
-        if type(value) != tuple:
-            return self.tally_single_value(value)
-        else:
-            return self.tally_tuple(value)
+        """
+        Public interface of the class that allows the tally behaviour.
+        Validates if either the value is in the Case Tuple or, if value is a tuple,
+        tallies it to the Case Tuple.
 
+        :param value: object, tuple
+        """
+        if value in self.tupla or compare_cases(value, self.tupla):
+            return self.tupla
+        else:
+            return False

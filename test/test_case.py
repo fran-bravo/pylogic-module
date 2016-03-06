@@ -1,17 +1,19 @@
 from unittest import TestCase
-from src.knowledge_base import KnowledgeBase
-from src.functions import _
-from src.creationals import CaseBuilder
+from pylogic.knowledge_base import KnowledgeBase
+from pylogic.functions import _
+from pylogic.creationals import CaseBuilder
 
 builder = CaseBuilder()
 x = 1
 base = KnowledgeBase(3)
+
 
 def assert_case_test(value, selector, tupla):
     case = builder.build()
 
     assert case.selector == selector
     assert case.tally(value) == tupla
+
 
 class TestCase(TestCase):
     def test_case_tally(self):

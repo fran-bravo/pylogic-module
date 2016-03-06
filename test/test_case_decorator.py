@@ -1,8 +1,8 @@
 from unittest import TestCase
-from src.knowledge_base import KnowledgeBase
-from src.decorators import case
-from src.exceptions import ArityError
-from src.functions import _
+from pylogic.knowledge_base import KnowledgeBase
+from pylogic.decorators import case
+from pylogic.exceptions import ArityError
+from pylogic.functions import _
 import pytest
 
 
@@ -45,8 +45,6 @@ def set_up_brothers(base):
 
 def set_up_strain(base):
     return set_up_brothers(base), set_up_parents(base)
-
-
 
 
 class TestCase(TestCase):

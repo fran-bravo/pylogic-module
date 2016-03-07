@@ -47,7 +47,7 @@ def set_up_strain(base):
     return set_up_brothers(base), set_up_parents(base)
 
 
-class TestCase(TestCase):
+class TestDecoratorCase(TestCase):
     def test_add_case(self):
         base = KnowledgeBase(2)
         parent = add_parent_strain(base)

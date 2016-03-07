@@ -1,6 +1,8 @@
 from pylogic.functions import compare_cases, _count_answers, flat
 from pylogic.exceptions import ArityError, TallyError, SelectorError
+from pylogic.case import Case
 from collections import OrderedDict
+import typing
 
 # Clase Base de Conocimiento #
 
@@ -12,12 +14,48 @@ class KnowledgeBase:
     - A list of cases, that represent the values stored
     """
 
+#  Magical Methods #
+
     def __init__(self, arity):
         self.arity = arity
         self.cases = OrderedDict()
 
     def __str__(self):
         return "Arity: " + str(self.arity) + " Cases: " + str(self.cases)
+
+    def __add__(self, case):
+        """ Interface to associate + operator with add_case method
+        :param case:
+        """
+
+        self.add_case(case)
+
+    def __sub__(self, caselector):
+        """ Interface to associate - operator with either delete_strain or remove_case method
+        :param caselector:
+        """
+
+        if type(caselector) is str:
+            self.delete_strain(caselector)
+        elif type(caselector) is Case:
+            self.remove_case(caselector)
+
+    def __getitem__(self, selector):
+        """ Interface to implement indexing
+        :param selector:
+        """
+
+        return self.cases[selector]
+
+    def __contains__(self, caselector):
+        """ Interface to implement in expresions
+        :param caselector:
+        """
+
+        if type(caselector) is str:
+            return caselector in self.cases.keys()
+        elif type(caselector) is Case:
+            return caselector.tupla in self._selected_values(caselector.selector)
 
 # Auxiliary Methods for Add #
 
@@ -123,6 +161,10 @@ class KnowledgeBase:
     def delete_strain(self, selector):
         self.cases.pop(selector)
 
+    def remove_case(self, case):
+        cases = self._selected_values(case.selector)
+        cases.remove(case.tupla)
+
     def tally(self, selector=None, *variables):
         values = tuple(variables)
         self._validate_arity(values)
@@ -130,6 +172,9 @@ class KnowledgeBase:
 
     def strains(self):
         return list(self.cases.keys())
+
+    def strain(self, selector):
+        return list(self.cases[selector])
 
     def amount_of_strains(self):
         return len(self.strains())

@@ -1,6 +1,5 @@
 from pylogic.functions import compare_cases
 
-
 # Clase Hecho/Caso #
 
 
@@ -17,6 +16,9 @@ class Case:
 
     def __str__(self):
         return self.selector + str(self.tupla)
+
+    def __add__(self, base) -> None:
+        base.add_case(self)
 
     def tally(self, value):
         """

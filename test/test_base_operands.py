@@ -47,3 +47,15 @@ class TestBaseOperand(TestCase):
 
         assert case in base
         assert "parent" in base
+
+    def test_iter(self):
+        base, case1 = initialize()
+        case2 = Case("parent", "marge", "bart")
+        case3 = Case("couple", "homer", "marge")
+        cases = [case1, case2, case3]
+
+        base + case1
+        base + case2
+
+        for case in base:
+            assert case in cases

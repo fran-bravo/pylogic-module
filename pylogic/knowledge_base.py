@@ -25,14 +25,14 @@ class KnowledgeBase:
 
     def __add__(self, case):
         """ Interface to associate + operator with add_case method
-        :param case:
+        :param case
         """
 
         self.add_case(case)
 
     def __sub__(self, caselector):
         """ Interface to associate - operator with either delete_strain or remove_case method
-        :param caselector:
+        :param caselector
         """
 
         if type(caselector) is str:
@@ -42,14 +42,14 @@ class KnowledgeBase:
 
     def __getitem__(self, selector):
         """ Interface to implement indexing
-        :param selector:
+        :param selector
         """
 
         return self.cases[selector]
 
     def __contains__(self, caselector):
-        """ Interface to implement in expresions
-        :param caselector:
+        """ Interface to implement in expressions
+        :param caselector
         """
 
         if type(caselector) is str:
@@ -57,58 +57,93 @@ class KnowledgeBase:
         elif type(caselector) is Case:
             return caselector.tupla in self._selected_values(caselector.selector)
 
+    def __iter__(self):
+        """ Implementation of for expressions """
+
+        for selector in self.cases.keys():
+            for case in self._selected_values(selector):
+                yield Case(selector, *case)
+
 # Auxiliary Methods for Add #
 
     def _exists(self, selector):
+        """ Method that validates the existence of a selector """
+
         return selector in self.cases.keys()
 
-    def _add_to_list(self, case):
+    def _add_to_strain(self, case):
+        """ Method that adds a case to a selector strain
+        :param case
+        """
+
         lista = self.cases[case.selector]
         lista.append(case.tupla)
         self.cases.update({case.selector: lista})
 
-    def _add_new_to_list(self, case):
+    def _add_new_to_strain(self, case):
+        """ Method that adds a new case to a new selector strain
+        :param case
+        """
+
         self.cases.update({case.selector: [case.tupla]})
 
 # Auxiliary Methods for Tally #
 
-    def _validate_arity(self, variables):
-        if len(variables) != self.arity:
+    def _validate_arity(self, values):
+        """ Validation for the arity of the values
+        :param values
+        """
+
+        if len(values) != self.arity:
             raise ArityError
 
     def _validate_selector(self, selector):
+        """ Validation for the existence of a selector
+        :param selector
+        """
+
         if not self._exists(selector):
             raise SelectorError
 
-    def _search_values(self, tupla):
-        for l in self.cases.values():
-            if tupla in l:
+    def _search_values(self, values):
+        """ Method that searches the values in all the strains
+        :param values
+        """
+
+        for strain_values in self.cases.values():
+            if values in strain_values:
                 return True
         return False
 
     def _flat_values(self):
+        """ Method that returns the values of all the strains in a single list """
+
         return flat(self.cases.values())
 
     def _selected_values(self, selector):
+        """ Method that returns the values of a specific selector strain
+        :param selector
+        """
         return self.cases[selector]
 
     def _tally_no_var(self, selector, values):
-        """ Searches if there's a tuple equal to the values.
-
+        """ Method that searches if there's a tuple equal to the values.
         :param selector: str
-        :param values: tuple"""
+        :param values: tuple
+        """
+
         for case in self._selected_values(selector):
             if case == values:
                 return True
         return False
 
     def _tally_multiple_vars(self, selector, values):
-        """ Compares the tuples associated with the selector against the values received.
+        """ Method that compares the tuples associated with the selector against the values received.
         Returns a list with the answers found.
-
         :param selector: str
         :param values: tuple
         """
+
         results = []
         for tupla in self._selected_values(selector):
             if compare_cases(tupla, values):
@@ -116,7 +151,10 @@ class KnowledgeBase:
         return results
 
     def _tally_no_selector(self, values):
-        print("No selector")
+        """ Method that compares if any selector strain has the specified values
+        :param values
+        """
+
         results = []
         for tupla in self._flat_values():
             if compare_cases(tupla, values):
@@ -124,8 +162,7 @@ class KnowledgeBase:
         return results
 
     def _amount_of_answers(self, tupla):
-        """ Checks the tuple and returns the amount of values to be answered
-
+        """ Method that checks the tuple and returns the amount of values to be answered
         :param tupla: tuple
         """
 
@@ -135,11 +172,11 @@ class KnowledgeBase:
             return _count_answers(tupla)
 
     def _analyse_values(self, selector, values):
-        """ Checks how the values passed are composed and selects the adecuate behaviour.
-
+        """ Method that checks how the values passed are composed and selects the adequate behaviour.
         :param selector: str
         :param values: tuple
         """
+
         if selector is None:
             return self._tally_no_selector(values)
         elif self._amount_of_answers(values) == 0:
@@ -154,9 +191,9 @@ class KnowledgeBase:
     def add_case(self, case):
         self._validate_arity(case.tupla)
         if self._exists(case.selector):
-            self._add_to_list(case)
+            self._add_to_strain(case)
         else:
-            self._add_new_to_list(case)
+            self._add_new_to_strain(case)
 
     def delete_strain(self, selector):
         self.cases.pop(selector)

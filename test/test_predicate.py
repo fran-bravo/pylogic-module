@@ -13,28 +13,23 @@ class TestPredicate(TestCase):
     case5 = Case("default", "Nombre", 4, True)
     case6 = Case("default", "Apellido", 4, False)
     case7 = Case("default", "Apellido", 5, True)
+    case8 = Case("default", str(), 4, object)
 
     base.add_case(case)
     base.add_case(case5)
     base.add_case(case6)
     base.add_case(case7)
-
-    base2 = KnowledgeBase(3)
-
-    case8 = Case("default", str(), 4, object)
-
-    base2.add_case(case8)
+    base.add_case(case8)
 
     def test_simple_predicate(self):
         predicate = Predicate()
         predicate.add_base(self.base)
 
-        assert predicate.tally(_, 4, _) == [("Pablo", 4, True), ("Nombre", 4, True), ("Apellido", 4, False)]
+        assert predicate.tally(_, 4, _) == [("Pablo", 4, True), ("Nombre", 4, True), ("Apellido", 4, False), (str(), 4, object)]
 
     def test_two_bases_predicate(self):
         predicate = Predicate()
         predicate.add_base(self.base)
-        predicate.add_base(self.base2)
 
         predicate.add_rule(lambda tup: tup[1] > 3)
 
@@ -43,7 +38,6 @@ class TestPredicate(TestCase):
     def test_complex_predicate(self):
         predicate = Predicate()
         predicate.add_base(self.base)
-        predicate.add_base(self.base2)
 
         predicate.add_rule(lambda tup: tup[1] > 4)
 
@@ -52,7 +46,6 @@ class TestPredicate(TestCase):
     def test_another_predicate(self):
         predicate = Predicate()
         predicate.add_base(self.base)
-        predicate.add_base(self.base2)
 
         predicate.add_rule(lambda tup: tup[0].startswith("A"))
 
@@ -61,7 +54,6 @@ class TestPredicate(TestCase):
     def test_def_predicate(self):
         predicate = Predicate()
         predicate.add_base(self.base)
-        predicate.add_base(self.base2)
 
         def filtro(tupla):
             if tupla[1] == 4 and (tupla[0] == "Nombre" or tupla[0] == "Pablo"):

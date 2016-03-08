@@ -2,7 +2,7 @@ from pylogic.functions import compare_cases, _count_answers, flat
 from pylogic.exceptions import ArityError, TallyError, SelectorError
 from pylogic.case import Case
 from collections import OrderedDict
-import typing
+
 
 # Clase Base de Conocimiento #
 
@@ -189,6 +189,10 @@ class KnowledgeBase:
 # Public Methods
 
     def add_case(self, case):
+        """ Method for the addition of cases to the base
+        :param case
+        """
+
         self._validate_arity(case.tupla)
         if self._exists(case.selector):
             self._add_to_strain(case)
@@ -196,24 +200,48 @@ class KnowledgeBase:
             self._add_new_to_strain(case)
 
     def delete_strain(self, selector):
+        """ Method for the deletion of a selector strain
+        :param selector
+        """
+
         self.cases.pop(selector)
 
     def remove_case(self, case):
+        """ Method for the deletion of a specified case
+        :param case
+        """
+
         cases = self._selected_values(case.selector)
         cases.remove(case.tupla)
 
     def tally(self, selector=None, *variables):
+        """ Method for the logical assertion of values
+        :param selector
+        :param variables
+        """
+
         values = tuple(variables)
         self._validate_arity(values)
         return self._analyse_values(selector, values)
 
     def strains(self):
+        """ Method for the inspection of the strains of the base """
+
         return list(self.cases.keys())
 
     def strain(self, selector):
+        """ Method for the inspection of the values of a strain
+        :param selector:
+        :return:  list
+        """
+
         return list(self.cases[selector])
 
     def amount_of_strains(self):
+        """ Method that returns the amount of strains of the base
+        :return: int
+        """
+
         return len(self.strains())
 
 

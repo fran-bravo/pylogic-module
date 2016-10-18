@@ -1,4 +1,4 @@
-from pylogic.functions import compare_cases
+from pylogic.functions import compare_cases, compare_value_to_case
 
 # Clase Hecho/Caso #
 
@@ -43,7 +43,7 @@ class Case:
         :param value: object, tuple
         """
 
-         if value in self.tupla:
+         if compare_value_to_case(value in self.tupla):
             return self.tupla
         elif type(value) == Case and compare_cases(value, self.tupla):
             return True

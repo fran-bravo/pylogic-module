@@ -33,6 +33,14 @@ def all_satisfy(condition, lista):
     return all(map(condition, lista))
 
 
+def compare_value_to_case(value, case):
+    
+    for c in case:
+        if(value == c and type(value) == type(c)):
+		return True
+
+    return False
+
 def compare_cases(case1, case2):
     """Compares case1 and case2, returning True if each cuple of values are equal_or_empty
 

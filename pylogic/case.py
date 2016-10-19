@@ -43,9 +43,9 @@ class Case:
         :param value: object, tuple
         """
 
-         if compare_value_to_case(value in self.tupla):
+        if compare_value_to_case(value,  self.tupla):
             return self.tupla
-        elif type(value) == Case and compare_cases(value, self.tupla):
-            return True
+        elif (type(value) == tuple) and compare_cases(value, self.tupla):
+            return self.tupla
         else:
             return False

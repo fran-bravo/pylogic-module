@@ -34,6 +34,11 @@ def all_satisfy(condition, lista):
 
 
 def compare_value_to_case(value, case):
+    """ Compares a value against all the values in a case
+
+        :param value:
+        :param case:
+    """
 
     for c in case:
         if(value == c and type(value) == type(c)) or (value == _):
@@ -66,7 +71,11 @@ def _count_answers(tupla):
 
 
 def count_answers(*variables):
-        return _count_answers(variables)
+    """Compatibility with *vars
+
+        :param variables:
+    """
+    return _count_answers(variables)
 
 # Predicate Functions #
 

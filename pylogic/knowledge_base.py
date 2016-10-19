@@ -171,7 +171,18 @@ class KnowledgeBase:
         else:
             return _count_answers(tupla)
 
-    def _analyse_values(self, selector, values):
+    def add_case(self, case):
+        """ Method for the addition of cases to the base
+        :param case
+        """
+
+        self._validate_arity(case.tupla)
+        if self._exists(case.selector):
+            self._add_to_strain(case)
+        else:
+            self._add_new_to_strain(case)
+
+    def _analyze_values(self, selector, values):
         """ Method that checks how the values passed are composed and selects the adequate behaviour.
         :param selector: str
         :param values: tuple
@@ -187,17 +198,6 @@ class KnowledgeBase:
             raise TallyError
 
 # Public Methods
-
-    def add_case(self, case):
-        """ Method for the addition of cases to the base
-        :param case
-        """
-
-        self._validate_arity(case.tupla)
-        if self._exists(case.selector):
-            self._add_to_strain(case)
-        else:
-            self._add_new_to_strain(case)
 
     def delete_strain(self, selector):
         """ Method for the deletion of a selector strain
@@ -222,7 +222,7 @@ class KnowledgeBase:
 
         values = tuple(variables)
         self._validate_arity(values)
-        return self._analyse_values(selector, values)
+        return self._analyze_values(selector, values)
 
     def strains(self):
         """ Method for the inspection of the strains of the base """

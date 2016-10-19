@@ -53,11 +53,12 @@ class TestDecoratorCase(TestCase):
         parent = add_parent_strain(base)
         parent("bob", "tim")
 
-        assert base.tally("parent","bob","tim") == True
+        assert base.tally("parent", "bob", "tim") is True
 
     def test_arity_error(self):
         with pytest.raises(ArityError):
             base = KnowledgeBase(2)
+
             @case(base)
             def brothers(firstBorn, secondBorn, thirdBorn):
                 pass
@@ -68,29 +69,29 @@ class TestDecoratorCase(TestCase):
         brothers = add_brother_strain(base)
         brothers("Caleb", "George")
 
-        assert base.tally("brothers", "Caleb", "George") == True
+        assert base.tally("brothers", "Caleb", "George") is True
 
     def test_base_strains_corrects(self):
         base = KnowledgeBase(2)
         set_up_strain(base)
 
         assert base.amount_of_strains() == 2
-        assert base.tally("parent", "Bob", "Caleb") == True
-        assert base.tally("brothers", "Caleb", "Tim") == True
-        assert base.tally("brothers", "Tim", "Caleb") == True
+        assert base.tally("parent", "Bob", "Caleb") is True
+        assert base.tally("brothers", "Caleb", "Tim") is True
+        assert base.tally("brothers", "Tim", "Caleb") is True
 
     def test_base_strains_fails(self):
         base = KnowledgeBase(2)
         set_up_strain(base)
 
         assert base.tally("parent", "Tim", _) == []
-        assert base.tally("parent", "George", "Tim") == False
+        assert base.tally("parent", "George", "Tim") is False
         assert base.tally("brothers", "Gina", _) == []
 
     def test_base_strains_list_results(self):
         base = KnowledgeBase(2)
         brothers, parent = set_up_strain(base)
 
-        assert base.tally("parent", "Bob", _) == [("Bob","Caleb"), ("Bob","George"), ("Bob", "Tim")]
-        assert base.tally("brothers", "Caleb", _) == [("Caleb","George"), ("Caleb", "Tim")]
+        assert base.tally("parent", "Bob", _) == [("Bob", "Caleb"), ("Bob", "George"), ("Bob", "Tim")]
+        assert base.tally("brothers", "Caleb", _) == [("Caleb", "George"), ("Caleb", "Tim")]
         assert base.tally("brothers", "Tim", _) == [("Tim", "Caleb"), ("Tim", "George")]

@@ -45,7 +45,7 @@ class Case:
 
         if compare_value_to_case(value,  self.tupla):
             return self.tupla
-        elif (type(value) == tuple) and compare_cases(value, self.tupla):
+        elif isinstance(value, tuple) and compare_cases(value, self.tupla):
             return self.tupla
         else:
             return False

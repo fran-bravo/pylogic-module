@@ -1,6 +1,6 @@
 from pylogic.case import Case
 from pylogic.knowledge_base import KnowledgeBase
-from pylogic.predicate import Predicate
+
 
 class CaseBuilder:
 
@@ -21,8 +21,10 @@ class CaseBuilder:
     def build(self):
         return Case(self.selector, *self.tupla)
 
-    def build_from(self, tupla, selector="default"):
+    @staticmethod
+    def build_from(tupla, selector="default"):
         return Case(selector, tupla)
+
 
 class BaseBuilder:
 

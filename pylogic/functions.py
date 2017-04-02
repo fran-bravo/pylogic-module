@@ -15,9 +15,9 @@ def equal_or_empty(tupla):
     val1, val2 = tupla[0], tupla[1]
     if val1 == val2:
         return True
-    elif val1 == _:
+    elif val1 is _:
         return True
-    elif val2 == _:
+    elif val2 is _:
         return True
     else:
         return False
@@ -88,7 +88,7 @@ def flat(lista):
 
     new_list = []
     for lis in lista:
-        if type(lis) == list:
+        if isinstance(lis, list):
             for l in lis:
                 new_list.append(l)
         else:

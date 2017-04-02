@@ -35,9 +35,9 @@ class KnowledgeBase:
         :param caselector
         """
 
-        if type(caselector) is str:
+        if isinstance(caselector, str):
             self.delete_strain(caselector)
-        elif type(caselector) is Case:
+        elif isinstance(caselector, Case):
             self.remove_case(caselector)
 
     def __getitem__(self, selector):
@@ -52,9 +52,9 @@ class KnowledgeBase:
         :param caselector
         """
 
-        if type(caselector) is str:
+        if isinstance(caselector, str):
             return caselector in self.cases.keys()
-        elif type(caselector) is Case:
+        elif isinstance(caselector, Case):
             return caselector.tupla in self._selected_values(caselector.selector)
 
     def __iter__(self):
@@ -124,6 +124,7 @@ class KnowledgeBase:
         """ Method that returns the values of a specific selector strain
         :param selector
         """
+
         return self.cases[selector]
 
     def _tally_no_var(self, selector, values):

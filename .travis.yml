@@ -11,3 +11,5 @@ script:
   - py.test --cov=./
 after_script:
   - pytest test/
+after_success:
+  - codecov --token=1081ff9a-5648-4de2-8044-b09eb63f7f95

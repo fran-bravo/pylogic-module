@@ -1,3 +1,5 @@
+import pytest, sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../")
 from unittest import TestCase
 from pylogic.case import Case
 from pylogic.predicate import Predicate
@@ -5,7 +7,6 @@ from pylogic.knowledge_base import KnowledgeBase
 from pylogic.decorators import rule
 from pylogic.exceptions import ArityError, NoneBaseError
 from pylogic.functions import _
-import pytest
 
 
 def set_base():

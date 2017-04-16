@@ -1,9 +1,10 @@
+import pytest, sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../")
 from unittest import TestCase
 from pylogic.knowledge_base import KnowledgeBase
 from pylogic.decorators import case
 from pylogic.exceptions import ArityError
 from pylogic.functions import _
-import pytest
 
 
 def add_parent_strain(base):

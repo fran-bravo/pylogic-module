@@ -142,10 +142,10 @@ def check_tuple_elem(tup, lista):
     :param lista:
     """
 
-    value = False
     for l in lista:
-        value = compare_tuple(tup, l)
-    return value
+        if compare_tuple(tup, l):
+            return True
+    return False
 
 
 def filter_tuple_repeats(lista):

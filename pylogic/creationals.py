@@ -23,7 +23,7 @@ class CaseBuilder:
 
     @staticmethod
     def build_from(tupla, selector="default"):
-        return Case(selector, tupla)
+        return Case(selector, *tupla)
 
 
 class BaseBuilder:
@@ -43,4 +43,8 @@ class BaseBuilder:
         self.set_cases(cases)
 
     def build(self):
-        return KnowledgeBase(self.aridad, self.cases)
+        base = KnowledgeBase(self.aridad)
+        for k in self.cases.keys():
+            for case in self.cases[k]:
+                base + case
+        return base

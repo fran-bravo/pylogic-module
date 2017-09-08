@@ -139,13 +139,12 @@ case.tally(('Bob', 'John')) # True
 
 A knowledge base consists of Strains of case objects and an Arity. A Strain groups case objects based on their selector, while the Arity defines the amount of elements stored in the case tuple supported by the Knowledge Base.
 
-Knowledge Base|Strains|Cases
---------------|-------|-------
-  family_tree |parent |('Bob','John')
- same         | same  |('Bob','Fred')
- same         |brothers|('Fred','John')
- same         | same   |('John','Fred')
-
+|Knowledge Base|Strains|Cases
+|--------------|-------|-------
+|  family_tree |parent |('Bob','John')
+|       ˪      |   ˪   |('Bob','Fred')
+|       ˪      |brothers|('Fred','John')
+|       ˪      |    ˪   |('John','Fred')
 
 #### Example
 

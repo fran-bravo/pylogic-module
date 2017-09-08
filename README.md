@@ -142,9 +142,9 @@ A knowledge base consists of Strains of case objects and an Arity. A Strain grou
 |Knowledge Base|Strains|Cases
 |--------------|-------|-------
 |  family_tree |parent |('Bob','John')
-|       ˪      |   ˪   |('Bob','Fred')
-|       ˪      |brothers|('Fred','John')
-|       ˪      |    ˪   |('John','Fred')
+|              |       |('Bob','Fred')
+|              |brothers|('Fred','John')
+|              |        |('John','Fred')
 
 #### Example
 

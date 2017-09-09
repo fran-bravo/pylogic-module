@@ -94,8 +94,8 @@ def brothers(brother_one, brother_two):
 parent('Bob', 'John')
 parent('Bob', 'Fred')
 
-brother('John', 'Fred')
-brother('Fred', 'John')
+brothers('John', 'Fred')
+brothers('Fred', 'John')
 ```
 
 ##### Tally
@@ -114,10 +114,26 @@ Predicates aim to add extra filtering options in conjunction with Knowledge Base
 
 #### Example
 
+##### Using lambdas
+
 ```python
 predicate = Predicate('brothers') # The predicate will work on the brothers strain
 predicate.add_base(family_tree)
 predicate.add_rule(lambda tup: tup[0].startswith('F')) # We add a rule in the predicate to check if the parent name starts with B
 
 predicate.tally(_, _) # [('Fred', 'Bob')]
+```
+
+###### Using def
+
+```python
+predicate = Predicate('brothers')
+predicate.add_base(family_tree)
+
+def not_bob(tup):
+  return (tup[0] != 'Bob') and (tup[1] != 'Bob')
+  
+predicate.add_rule(not_bob)
+
+predicate.tally(_, _) # []
 ```

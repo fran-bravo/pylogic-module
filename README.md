@@ -68,6 +68,8 @@ A knowledge base consists of Strains of case objects and an Arity. A Strain grou
 
 #### Example
 
+##### Creation
+
 ```python
 from pylogic.knowledge_base import KnowledgeBase
 from pylogic.decorators import case
@@ -148,6 +150,8 @@ A knowledge base consists of Strains of case objects and an Arity. A Strain grou
 
 #### Example
 
+##### Creation
+
 ```python
 from pylogic.knowledge_base import KnowledgeBase
 from pylogic.decorators import case
@@ -167,4 +171,28 @@ parent('Bob', 'Fred')
 
 brother('John', 'Fred')
 brother('Fred', 'John')
+```
+
+##### Tally
+
+```python
+from pylogic.functions import _
+
+family_tree.tally("parent", "Bob", _) # [('Bob', 'John'),('Bob', 'Fred')]
+```
+
+_We recommend the usage of _ from the functions file for easier tallies (functions module just defines an alias for None in a variable named _ )_
+
+### Predicate (WIP)
+
+Predicates aim to add extra filtering options in conjunction with Knowledge Bases, allowing for more powerful tallies.
+
+#### Example
+
+```python
+predicate = Predicate('brothers') # The predicate will work on the brothers strain
+predicate.add_base(family_tree)
+predicate.add_rule(lambda tup: tup[0].startswith('F')) # We add a rule in the predicate to check if the parent name starts with B
+
+predicate.tally(_, _) # [('Fred', 'Bob')]
 ```
